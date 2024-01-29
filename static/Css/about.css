@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #d8e9df;
+}
+.heading {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.heading h1 {
+  font-size: 50px;
+  color: #232d39;
+  margin-bottom: 20px;
+  position: relative;
+}
+.heading h1::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  display: block;
+  margin: 0px auto;
+  background-color: none;
+}
+.heading p {
+  font-size: 18px;
+  color: #6c757d;
+  margin-bottom: 35px;
+
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.about-image {
+  flex: 1;
+  margin-left: 40px;
+  margin-right: 40px;
+  overflow: hidden;
+}
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transition: 0.5s ease;
+  border-radius: 15px;
+}
+.about-image:hover img {
+  transform: scale(0.8);
+}
+
+.about-image2 {
+  flex: 1;
+  margin-right: 40px;
+  overflow: hidden;
+}
+.about-image2 img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transition: 0.5s ease;
+  border-radius: 15px;
+}
+
+.about-content {
+  flex: 2;
+}
+.about-content h2 {
+  font-size: 23px;
+  margin-bottom: 15px;
+  color: black;
+}
+.about-content p {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #000;
+  text-align: justify;
+}
+
+@media screen and (max-width: 768px) {
+  .heading {
+    padding: 0px 20px;
+  }
+  .heading h1 {
+    font-size: 36px;
+  }
+  .heading p {
+    font-size: 17px;
+    margin-bottom: 0px;
+  }
+  .container {
+    padding: 0px;
+  }
+  .about {
+    padding: 20px;
+    flex-direction: column;
+  }
+  .about-image {
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+  .about-image2 {
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+  .about-content p {
+    padding: 0px;
+    font-size: 16px;
+  }
+}

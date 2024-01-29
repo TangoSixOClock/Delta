@@ -1,0 +1,249 @@
+{% extends "tango/base.html" %}
+{% load static %}
+{% load course_tags %}
+
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static '/Css/home.css' %}">
+    
+<!--  *****   Link To Font Awsome Icons   *****  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+
+<!--  *****   Link To Owl Carousel   *****  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+<div class="website-container">
+
+    <section class="home" id="home">
+        
+        <!--   === Banner Starts ===   -->
+        <div class="banner">
+            
+            <div class="banner-desc">
+                <h2>India's First Israeli Counter Crime EdTech </h2>
+                <p><i>Join Us In Building India's Security Culture against Criminals and Radicals.</i></p>
+                {% comment %} <form class="search-bar">
+                    <input type="search" placeholder="Search Your Course">
+                    <i class="fa-solid fa-search"></i>
+                </form> {% endcomment %}
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'testimonial_policy' %}"><button class="courses-btn btn">No Testimony Policy</button></a>
+                {%  else %}
+                <a href="{% url 'loginpage' %}"><button class="courses-btn btn">Get Started</button></a>
+                {% endif %}
+            </div>
+    
+            <div class="banner-img">
+                <div class="banner-img-container">
+                    <img src="{% static 'images/home.gif' %}">
+    
+                    {% comment %} <div class="states">
+                        <div class="total-courses">
+                            <div class="icon">
+                                <i class="fa-solid fa-book"></i>
+                            </div>
+                            <div class="desc">
+                                <span>284+</span>
+                                <span>Total Courses</span>
+                            </div>
+                        </div>
+    
+                        <div class="courses-ratings">
+                            <span>4.7<i class="fa-solid fa-star"></i></span>
+                            <span>Ratings (58k)</span>
+                        </div>
+                    </div> {% endcomment %}
+    
+                    <div class="pattern">
+                        <img src="{% static 'images/pattern.png' %}">
+                    </div>
+    
+                </div>
+            </div>
+    
+        </div>
+        <!--   === Banner Ends ===   -->
+    </section>
+
+
+
+<!--   *** Expertise Section Starts ***   -->
+<section class="services" id="services">
+<!--   *** Expertise Header Starts ***   -->
+<header class="section-header">
+    <h1>Our Expertise</h1>
+    <p><i>Having Tactical Associations with ISA-Israel and its ELITE, comes with its share of maintaining ELITE standards in all the services we offer. So when its comes to quality, we have a reputation to live up to.</i></p>
+</header>
+<!--   *** Expertise Header Ends ***   -->
+<!--   *** Expertise Contents Starts ***   -->
+<div class="services-contents">
+
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <div class="service-desc">
+            <h2>Israeli Counter Crime Education (#TSoC_ICCE)</h2>
+            <p>Enhance personal security and safety with our ICCE courses, inspired by Israeli security doctrine. Learn the best strategies to keep crime at bay. Enroll today!</p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-sitemap"></i>
+        </div>
+        <div class="service-desc">
+            <h2>360 Degree Security Architecture</h2>
+            <p>Offering a complete 360-degree security architecture to help you secure your most valued assets (Man/Material/Space). Right from Reconnaissance, Threat Assessment (OSINT and HUMINT), Security Architecture Design (SAD),  Vendor/Product Recommendation and Deployment, SAD  Reconciliation, Security Philosophy and Methodology Design and Implementation, and Tactical Training</p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-building-shield"></i>
+        </div>
+        <div class="service-desc">
+            <h2>Institutional Security</h2>
+            <p>Secure children within institutions with our 360-degree security architecture. Reach out for more information.</p>
+        </div>
+    </div>
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <div class="service-desc">
+            <h2>Tactical Life Skills (#TSoC_TLS)</h2>
+            <p>Empower your kids with emotional intelligence, accurate thinking, tactical decision-making and more critical life-skills. Discover our TLS program for schools and colleges.</p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-people-roof"></i>
+        </div>
+        <div class="service-desc">
+            <h2>Community Security. (#TSoC_CommunityPolicing)</h2>
+            <p>Is your community secured from crime, criminals and events of public unrest? Book your consulting NOW!</p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-book"></i>
+        </div>
+        <div class="service-desc">
+            <h2>Capability Building and Product Innovation for PSAs</h2>
+            <p>Enhance security efficiency and reduce costs with innovative products for your Private Security Agency. Book a consulting slot today.</p>
+        </div>
+    </div>
+
+</div>
+<!--   *** Services Contents Ends ***   -->
+</section>
+<!--   *** Expertise Section Ends ***   -->
+
+ <!--   *** Courses Section Starts ***   -->
+<section class="courses" id="courses">
+<!--   *** Courses Header Starts ***   -->
+<header class="section-header">
+    <div class="header-text">
+        <h1>Welcome To Your Tactical Armory </h1> 
+        <p><i>To make available to you critical security and safety education designed and created by those who have spent decades fighting threats and eliminating vulnerabilities.</i></p>
+    </div>
+    {% comment %} <button class="courses-btn btn">View All</button>  {% endcomment %}
+</header>
+
+<div class="course-contents">
+    {% for course in courses %}
+    <div class="course-card">
+        <img src="{{course.thumbnail.url}}">
+        <div class="category">
+            
+        </div>
+        <h1 class="course-title">{{course.name}}</h1>
+        <br>
+        <p class="simple">{{course.description}}</p>
+        <div class="course-desc">
+            {% if course.active %}
+            <span><i class="fa-solid fa-video"></i> {{course.length}} Videos</span>
+            {% else %}
+            <span><i class="fa-solid fa-video"></i> Videos Coming Soon</span>
+            <br>
+            <br>
+            <span></span>
+            
+            {% endif %}
+        </div>
+        <div class="course-ratings">
+            {% if course.active %}
+            <span>{% cal_sellprice course.price course.discount as value %}{{value|rupee}}</span>
+            <span><a href="{% url 'course' course.slug %}">Show More</h4></a></span>
+            {% else %}
+            
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+<!--   *** Courses Contents Ends ***   -->
+</section>
+
+<!--   *** Teacher Section Starts ***   -->
+{% comment %} <section class="instructor">
+<div class="instructor-container">
+    <h2>Embark with us </h2>
+    <p><i>Watch a small introduction about us</i></p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/zaazOXqmHHE?si=ZUDcKSYS-TDtuaRi" title="Tango" frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen align="center"></iframe>
+</div>
+</section> {% endcomment %}
+
+{% comment %} <section class="services" id="services">
+
+<header class="section-header">
+    <h1>Why Choose Us</h1>
+    
+</header>
+<div class="services-contents">
+
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-calendar"></i>
+        </div>
+        <div class="service-desc">
+            <h2>Flexible Timing</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-users"></i>
+        </div>
+        <div class="service-desc">
+            <h2>Expert Teachers</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+
+    <div class="service-box">
+        <div class="service-icon">
+            <i class="fa-solid fa-clock"></i>
+        </div>
+        <div class="service-desc">
+            <h2>24/7 Live Support</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+
+</div>
+</section> {% endcomment %}
+<!--   *** Services Section Ends ***   -->
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script type="text/javascript" src="{% static "javascript/home.js" %}"></script>
+{% endblock content %}

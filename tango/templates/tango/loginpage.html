@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="shortcut icon" href="{% static 'images/Tango.webp' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static '/Css/login.css' %}">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="box-form">
+	<div class="left">
+		<div class="overlay">
+		<h1>Tango Six O'Clock</h1>
+		<span>
+			{% comment %} <p>login with social media</p>
+			<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+			<a href="#"><i class="fa fa-google" aria-hidden="true"></i></a> {% endcomment %}
+		</span>
+		</div>
+	</div>
+	
+	
+		<div class="right">
+		<h1>Login</h1>
+		<p>Don't have an account? <a href="{% url 'register' %}">Create Your Account</a> . It will takes less than a minute</p>
+		<div class="inputs">
+            <form method="POST">
+				{% csrf_token %}
+			<input class="input" type="text" name="username" id='id_username' placeholder="Username">
+			<br>
+			<input class="input" type="password" name="password" id='id_password' placeholder="Password">
+		</div>
+			
+			<br><br>
+			
+		<div class="remember-me--forget-password">
+			<h4><a href="{% url 'reset_password' %}">Forgot Password ?</a></h4>
+		</div>
+			
+			<br>
+			<input type="submit" value="Log In" class="button">
+    </form>
+	</div>
+	
+</div>
+<!-- partial -->
+  
+</body>
+</html>
