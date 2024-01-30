@@ -59,14 +59,14 @@ def Contact(request):
         phone = request.POST['phone']
         message = request.POST['message']
 
-        fm = ContactForm(request.POST)
-        if fm.is_valid():
-            fm.save()
-
         send_notification(name, email, phone, message)
 
         # Send confirmation email to the user
         send_confirmation_email(name, email)
+
+        fm = ContactForm(request.POST)
+        if fm.is_valid():
+            fm.save()
 
         return redirect('contact')
     
@@ -93,7 +93,7 @@ def send_confirmation_email(name, email):
 @login_required(login_url='/login')
 def Articles(request):
     context = {}
-    return render(request,'newsletter.html',context)
+    return render(request,'tango/newsletter.html',context)
 
 @login_required(login_url='/login')
 def Help(request):
