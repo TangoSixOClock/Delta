@@ -7,7 +7,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'bs3$b(+5vqe(=#+5-#p0v6fz9_d)creqg-1ql7exyn18&yx=cu'
 
 DEBUG = False
 
@@ -58,11 +58,11 @@ WSGI_APPLICATION = 'Tsoc.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('db_name'),
-        'USER': os.environ.get('db_user'),
-        'PASSWORD': os.environ.get('db_pass'),
-        'HOST': os.environ.get('db_host'),
-        'PORT': '59245',
+        'NAME': 'delta',
+        'USER': 'tango',
+        'PASSWORD': 'Django123',
+        'HOST': 'delta.cpzckj1ocmci.ap-south-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -98,7 +98,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build','static')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
@@ -115,9 +115,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  
 EMAIL_USE_TLS = True 
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'tangosixoclock@gmail.com'
+EMAIL_HOST_PASSWORD = 'qlpe ihcc juvi fomm'
 
-DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = 'tangosixoclock@gmail.com'
 
 EMAIL_TIMEOUT = 1
