@@ -150,6 +150,7 @@ section.home {
   z-index: 1;
 }
 .banner-img .banner-img-container {
+  margin-top: 20px;
   position: relative;
   width: 400px;
   z-index: 2;

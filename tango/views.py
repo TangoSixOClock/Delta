@@ -212,7 +212,7 @@ def LoginPage(request):
                 return redirect('home')
 
         else:
-            return render(request,'loginpage.html')
+            return render(request,'tango/loginpage.html')
         
     return render(request,'tango/loginpage.html')
 
@@ -229,7 +229,7 @@ def Register(request):
                 return redirect('loginpage')
 
         else:
-            return render(request,'register.html')
+            return render(request,'tango/register.html')
         
     return render(request,'tango/register.html',{'form':form})
 
