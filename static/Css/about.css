@@ -36,8 +36,8 @@ body {
 .heading p {
   font-size: 18px;
   color: #6c757d;
+  margin: 75px;
   margin-bottom: 35px;
-
 }
 .container {
   width: 90%;
@@ -64,9 +64,10 @@ body {
   display: block;
   transition: 0.5s ease;
   border-radius: 15px;
+  transform: scale(0.8);
 }
 .about-image:hover img {
-  transform: scale(0.8);
+  transform: scale(1);
 }
 
 .about-image2 {
@@ -95,6 +96,21 @@ body {
   line-height: 1.5;
   color: #000;
   text-align: justify;
+}
+
+.about-content .button {
+  color: #d8e9df;
+  padding: 15px;
+  background: #208245;
+  border: none;
+  border-radius: 10px;
+}
+
+.about-content .button:hover {
+  color: #208245;
+  background: #d8e9df;
+  cursor: pointer;
+  border: 1px solid #208245;
 }
 
 @media screen and (max-width: 768px) {

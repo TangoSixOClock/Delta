@@ -33,11 +33,12 @@
       </div>
 
       <div class="profile">
-         <img src="{{request.user.userprofile.photo.url}}" class="image" alt="Profile Picture">
-         <h3 class="name">{{request.user.email}}</h3>
+         {% comment %} <img src="{{request.user.userprofile.photo.url}}" class="image" alt="Profile Picture"> {% endcomment %}
+         {% comment %} <h3 class="name">{{request.user.email}}</h3> {% endcomment %}
          <div class="flex-btn">
-            <a href="{% url 'logoutpage' %}" class="option-btn">Logout</a>
+            {% comment %} <a href="{% url 'logoutpage' %}" class="option-btn">Logout</a> {% endcomment %}
             <a href="{% url 'help' %}" class="option-btn">Support</a>
+            <a href="{% url 'profile' %}" class="option-btn">Profile</a>
          </div>
       </div>
 
@@ -51,12 +52,12 @@
       <i class="fas fa-times"></i>
    </div>
 
-   <div class="profile">
-      <img src="{{request.user.userprofile.photo.url}}" class="image" alt="profile">
-      <h3 class="name">{{request.user.email}}</h3>
-      <p class="role">Student ID : {{request.user.userprofile.profileid}}</p>
+   {% comment %} <div class="profile">
+      <p class="name">Username : {{request.user.username}}</p>
+      <p class="name">{{request.user.email}}</p>
+      <p class="role">User ID : {{request.user.userprofile.profileid}}</p>
       <a href="{% url 'profile' %}" class="btn">Profile</a>
-   </div>
+   </div> {% endcomment %}
 
    <nav class="navbar">
       <a href="{% url 'home' %}"><span>Home</span></a>
@@ -67,7 +68,7 @@
 
 </div>
 
-<section class="watch-video">
+{% comment %} <section class="watch-video">
 
    <div class="col">
       <div class="mx-auto">
@@ -77,7 +78,40 @@
               allowfullscreen oncontextmenu="return false;"></iframe>
       </div>
   </div>
+</section> {% endcomment %}
+
+<section class="watch-video">
+
+   <div class="video-container">
+      <div class="video">
+         <video src="{{video.video_id.url}}" controls id="video" controlsList="nodownload"  oncontextmenu="return false;"></video>
+      </div>
+      <h3 class="title">{{video.title}}</h3>
+      <div class="info">
+         <p class="date"><i class="fas fa-calendar"></i><span>12-02-2024</span></p>
+         {% comment %} <p class="date"><i class="fas fa-heart"></i><span>44 likes</span></p> {% endcomment %}
+      </div>
+      {% comment %} <div class="tutor">
+         <img src="images/pic-2.jpg" alt="">
+         <div>
+            <h3>john deo</h3>
+            <span>developer</span>
+         </div>
+      </div> {% endcomment %}
+      <form action="" class="flex" id="questionForm">
+         <a href="#" class="inline-btn">Download References</a>
+         {% comment %} <button><i class="far fa-heart"></i><span>More</span></button> {% endcomment %}
+         <a href="https://freesuggestionbox.com/pub/czmjjbf" class="inline-btn">Share Assignment (Anonymous)</a>
+      </form>
+      <p class="description">
+         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque labore ratione, hic exercitationem mollitia obcaecati culpa dolor placeat provident porro.
+         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid iure autem non fugit sint. A, sequi rerum architecto dolor fugiat illo, iure velit nihil laboriosam cupiditate voluptatum facere cumque nemo!
+      </p>
+   </div>
+
 </section>
+
+
 <section class="playlist-videos">
 
    <h1 class="heading">Videos List</h1>
@@ -95,12 +129,31 @@
    </div>
 
 </section>
+{% if quiz_link %}
+<section class="comments">
+<h1 class="heading">Quiz</h1>
+
+   <div class="add-comment">
+      <br>
+      <h3>You need to score at least 80% to unlock the next chapter.</h3>
+      {% comment %} <textarea name="comment_box" placeholder="enter your comment" required maxlength="1000" cols="30" rows="10"></textarea> {% endcomment %}
+      <a href="{% url 'quiz' cor ch %}" class="inline-btn">Start Quiz</a>
+   </div>
+</section>
+{% endif %}
+<footer class="footer">
+
+   &copy; copyright 2024 by <span>Tango</span> | All Rights Reserved!
+
+</footer>
 
 <!-- custom js file link  -->
 <script src="{% static 'javascript/profile.js' %}"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <script>
    var player;
-var video_list
+   var video_list
 document.onreadystatechange = function () {
     if (document.readyState == 'interactive') {
         player = document.getElementById("player")
@@ -116,7 +169,7 @@ function maintainRatio() {
     player.height = h
     video_list.style.maxHeight = h + "px"
 }
-window.onresize = maintainRatio
+window.onresize = maintainRatio 
 </script>
 </body>
 </html>

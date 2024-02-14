@@ -34,8 +34,8 @@
       </div>
 
       <div class="profile">
-         <img src="{{request.user.userprofile.photo.url}}" class="image" alt="Profile">
-         <h3 class="name">{{request.user.email}}</h3>
+         {% comment %} <img src="{{request.user.userprofile.photo.url}}" class="image" alt="Profile"> {% endcomment %}
+         {% comment %} <h3 class="name">{{request.user.email}}</h3> {% endcomment %}
          <!-- <p class="role">studen</p>
          <a href="profile.html" class="btn">view profile</a> -->
          <div class="flex-btn">
@@ -55,9 +55,10 @@
    </div>
 
    <div class="profile">
-      <img src="{{request.user.userprofile.photo.url}}" class="image" alt="profile">
-      <h3 class="name">{{request.user.email}}</h3>
-      <p class="role">Student ID : {{request.user.userprofile.profileid}}</p>
+      <p class="name">Username : {{request.user.username}}</p>
+      <p class="name">{{request.user.email}}</p>
+      
+      <p class="role">User ID : {{request.user.userprofile.profileid}}</p>
       <a href="{% url 'home' %}" class="btn">Home</a>
    </div>
 
@@ -88,8 +89,9 @@
       <input type="text" name="institude" id="id_institude" value="{{form.institude.value}}" placeholder="Institude or Company name" maxlength="120" class="box">
       <p>Profession</p>
       <input type="text" name="profession" id="id_profession" value="{{form.profession.value}}" placeholder="Occupation" maxlength="20" class="box">
-      <p>Picture</p>
-      <input type="file" name="photo" id="id_photo" accept="image/*" class="box"> 
+      <p>Location</p>
+      <input type="text" name="location" id="id_location" value="{{form.location.value}}" placeholder="location" maxlength="30" class="box">
+   
       <input type="submit" value="update profile" name="submit" class="btn">
    </form>
 

@@ -12,7 +12,7 @@
     <div class="contact-info">
       <h3 class="title">Ask for Help!</h3>
       <p class="text">
-        Reach out us for assistance.....
+        Reach out to us for assistance
       </p>
 
       <div class="info">
@@ -29,16 +29,6 @@
       <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h3 class="title">Support</h3>
-        <div class="input-container">
-          <input type="text" name="name" class="input" required id="id_name" />
-          <label for="id_name">Full Name</label>
-          <span>Full Name</span>
-        </div>
-        <div class="input-container">
-          <input type="email" name="email" class="input" required id="id_email" />
-          <label for="id_email">Email</label>
-          <span>Email</span>
-        </div>
         <div class="input-container textarea">
           <textarea name="message" class="input" rows="4" cols="10" maxlength="250" id="id_message"></textarea>
           <label for="id_message">Message</label>

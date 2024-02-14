@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800&display=swap");
 
 * {
   margin: 0;
@@ -9,7 +9,7 @@
 body,
 input,
 textarea {
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .container {
@@ -215,7 +215,7 @@ textarea.input {
 .information {
   display: flex;
   color: #555;
-  margin: 0.7rem 0;
+  margin: 1.5rem 0;
   align-items: center;
   font-size: 0.95rem;
 }
@@ -296,6 +296,36 @@ textarea.input {
   transform: translate(181%, 11%);
   opacity: 0.2;
 }
+
+.input-container1 input[type="text"] {
+  background-color: #208245;
+  outline: none;
+  border: 2px solid #fafafa;
+  margin: 10px;
+  height: 50px;
+  padding: 0.6rem 1.2rem;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  border-radius: 25px;
+  transition: 0.3s;
+  width: 75%;
+}
+
+/* .input {
+  width: 100%;
+  outline: none;
+  border: 2px solid #fafafa;
+  background: none;
+  padding: 0.6rem 1.2rem;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  border-radius: 25px;
+  transition: 0.3s;
+} */
 
 @media (max-width: 850px) {
   .form {

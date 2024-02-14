@@ -5,7 +5,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Profile</title>
+   <title>Tango Six O'Clock | Profile</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
@@ -35,8 +35,8 @@
 
       <div class="profile">
          {% comment %} <img src="{% static 'images/profile.jpg' %}" class="image" alt="profile"> {% endcomment %}
-         <img src="{{request.user.userprofile.photo.url}}" class="image" alt="Profile Picture">
-         <h3 class="name">{{request.user.email}}</h3>
+         {% comment %} <img src="{{request.user.userprofile.photo.url}}" class="image" alt="Profile Picture"> {% endcomment %}
+         {% comment %} <h3 class="name">{{request.user.email}}</h3> {% endcomment %}
         <!-- <p class="role">Student</p>
          <a href="profile.html" class="btn">View Profile</a> -->
          <div class="flex-btn">
@@ -79,14 +79,10 @@
    <div class="info">
 
       <div class="user">
-         {% if request.user.is_authenticated %}
-         <img src="{{request.user.userprofile.photo.url}}" alt="profile">
-         {% else %}
-         <img src="{% static 'images/profile.jpg' %}" alt="profile">
-         {% endif %} 
+         <h3 class="name">Username : {{request.user.username}}</h3>
          <h3>{{request.user.email}}</h3>
-         <p>Student ID : {{form}}</p>
-         <a href="{% url 'update-profile' request.user.id %}" class="inline-btn">Update Profile</a>
+         <p>User ID : {{form}}</p>
+         <a href="{% url 'update-profile' request.user.userprofile.profileid %}" class="inline-btn">Update Profile</a>
          {% comment %} <a href="{% url 'home' %}" class="inline-btn">Home</a>  {% endcomment %}
       </div>
    <br>
@@ -135,7 +131,9 @@
    </div>
 
 </section>
-
+<br>
+<br>
+<br>
 <footer class="footer">
 
    &copy; copyright 2024 by <span>Tango</span> | All Rights Reserved!

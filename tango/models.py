@@ -5,16 +5,19 @@ from django.dispatch import receiver
 from datetime import datetime
 
 class Course(models.Model):
-    name = models.CharField(max_length=40,null=False)
-    slug = models.CharField(max_length=40,null=False,unique=True)
+    name = models.CharField(max_length=40,null=True)
+    slug = models.CharField(max_length=40,null=True)
     description = models.CharField(max_length=300,null=True)
-    price = models.IntegerField(null=False)
-    discount = models.IntegerField(null=False,default=0)
+    price = models.IntegerField(null=True)
+    discount = models.IntegerField(null=True,default=0)
     active = models.BooleanField(default=False)
     thumbnail = models.ImageField(upload_to='files/thumbnail/')
     date = models.DateTimeField(auto_now_add=True)
     resource = models.FileField(upload_to='files/resource/')
-    length = models.IntegerField(null=False)
+    time_to_complete = models.CharField(max_length=50,null=True)
+    numbers_of_chapter = models.IntegerField(null=True)
+    requirement_to_complete = models.CharField(max_length=100,null=True)
+    language = models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return self.name
@@ -36,6 +39,7 @@ class Chapter(models.Model):
     is_preview = models.BooleanField(default=False)
     slug = models.CharField(max_length=40,null=True,unique=True)
     serial_number = models.IntegerField(null=True)
+    complete_chapter = models.BooleanField(default=False)
     number_of_videos = models.IntegerField(null=True)
 
     def __str__(self):
@@ -47,7 +51,7 @@ class Video(models.Model):
     thumbnail = models.ImageField(upload_to='files/thumbnail/',null=True)
     title =  models.CharField(max_length=100,null=True)
     serial_number = models.IntegerField(null=True)
-    video_id = models.CharField(max_length=100,null=True)
+    video_id = models.FileField(upload_to='files/videos/',null=True)
 
     def __str__(self):
         return self.title
@@ -56,7 +60,8 @@ class UserCourse(models.Model):
     user = models.ForeignKey(User,null=False,on_delete=models.CASCADE)
     course = models.ForeignKey(Course,null=False,on_delete=models.CASCADE)
     course_complete = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
+    code = models.CharField(max_length=10,blank=True,null=True)
+    complete_date = models.CharField(max_length=15,null=True)
 
     def __str__(self):
         return f'{self.user.username} - {self.course.name}'
@@ -64,8 +69,10 @@ class UserCourse(models.Model):
 class Payment(models.Model):
     order_id = models.CharField(max_length=50,null=False)
     payment_id = models.CharField(max_length=50,null=False)
-    usercourse = models.ForeignKey(UserCourse,null=False,blank=True,on_delete=models.CASCADE)
+    amount = models.IntegerField(null=True)
+    usercourse = models.ForeignKey(UserCourse,null=True,blank=True,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+    code = models.CharField(max_length=10,blank=True,null=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
@@ -82,41 +89,29 @@ class ContactDetail(models.Model):
     
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    name = models.CharField(max_length=50,null=True)
-    phone = models.CharField(max_length=20,null=True)
-    photo = models.ImageField(upload_to='files/profile/',default='profile.jpg')
-    sex = models.CharField(max_length=20,null=True)
-    dob = models.CharField(max_length=20,null=True)
+    name = models.CharField(max_length=50,null=True,blank=True)
+    phone = models.CharField(max_length=20,null=True,blank=True)
+    sex = models.CharField(max_length=20,null=True,blank=True)
+    dob = models.CharField(max_length=20,null=True,blank=True)
     profileid = models.CharField(max_length=30,null=True)
-    institude = models.CharField(max_length=60,null=True)
-    profession = models.CharField(max_length=30,null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    chapter = models.IntegerField(default=1)
+    institude = models.CharField(max_length=60,null=True,blank=True)
+    profession = models.CharField(max_length=30,null=True,blank=True)
+    location = models.CharField(max_length=50,null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
     
     def __str__(self):
         return self.user.username
     
 @receiver(post_save,sender=User)
 def create_profile(sender,instance,created,**kwargs):
-    if created:
+    if created and instance.is_superuser:
         def generate_token():
             import random
-
-            # Provided string
             full_name = str(instance)
-
-            # Splitting the full name into first and last names
-            
             random_letters_first_name = random.sample(full_name[1:], 2)
-
-           
-
-            # Constructing the final string
             result = full_name[0] + ''.join(random_letters_first_name) 
-
             current_datetime = datetime.now()
-            
-
-            # Format the date and time according to the desired format
             token_format = "{:02d}{:02d}{:02d}{:02d}{:02d}{:02d}".format(
                 current_datetime.day,
                 current_datetime.month,
@@ -132,7 +127,37 @@ def create_profile(sender,instance,created,**kwargs):
 
 class CouponCode(models.Model):
     code = models.CharField(max_length=6)
+    count = models.IntegerField(default=0)
     name = models.CharField(max_length=60,null=True)
     pan_number = models.CharField(max_length=20,null=True)
     course = models.ForeignKey(Course,on_delete=models.CASCADE)
     discount = models.IntegerField(default=0)
+    phone = models.CharField(max_length=15,null=True)
+
+class IpTrack(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    ip_address = models.CharField(max_length=30,null=True)
+
+class Questions(models.Model):
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
+    chapter = models.ForeignKey(Chapter,on_delete=models.CASCADE,null=True)
+    question = models.CharField(max_length=250,null=True)
+    answer = models.CharField(max_length=150,null=True)
+
+    def __str__(self):
+        return f'{self.question} - {self.chapter.title} - {self.course.name}'
+
+class Answers(models.Model):
+    question = models.ForeignKey(Questions,on_delete=models.CASCADE)
+    chapter = models.ForeignKey(Chapter,on_delete=models.CASCADE,null=True)
+    answer = models.CharField(max_length=150,null=True)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.question.question} - {self.answer}'
+    
+class UpcomingCourse(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    email = models.CharField(max_length=50,null=True)
+    phone = models.CharField(max_length=20,null=True)
+    date = models.DateField(auto_now_add=True)

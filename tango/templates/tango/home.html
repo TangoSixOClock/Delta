@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{% static '/Css/home.css' %}">
     
 <!--  *****   Link To Font Awsome Icons   *****  -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <!--  *****   Link To Owl Carousel   *****  -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
@@ -23,15 +23,10 @@
             <div class="banner-desc">
                 <h2>India's First Israeli Counter Crime EdTech </h2>
                 <p><i>Join Us In Building India's Security Culture against Criminals and Radicals.</i></p>
-                {% comment %} <form class="search-bar">
-                    <input type="search" placeholder="Search Your Course">
-                    <i class="fa-solid fa-search"></i>
-                </form> {% endcomment %}
-                {% if request.user.is_authenticated %}
-                <a href="{% url 'testimonial_policy' %}"><button class="courses-btn btn">No Testimony Policy</button></a>
-                {%  else %}
-                <a href="{% url 'loginpage' %}"><button class="courses-btn btn">Get Started</button></a>
-                {% endif %}
+               
+                
+                <a href="{% url 'testimonial_policy' %}" target ="_blank"><button class="courses-btn btn">No Testimony Policy</button></a>
+               
             </div>
     
             <div class="banner-img">
@@ -58,6 +53,7 @@
                     <div class="pattern">
                         <img src="{% static 'images/pattern.png' %}">
                     </div>
+                    
     
                 </div>
             </div>
@@ -85,7 +81,9 @@
         </div>
         <div class="service-desc">
             <h2>Israeli Counter Crime Education (#TSoC_ICCE)</h2>
-            <p>Enhance personal security and safety with our ICCE courses, inspired by Israeli security doctrine. Learn the best strategies to keep crime at bay. Enroll today!</p>
+            <p>Developed right out of the Israeli Security Doctrine for Close Protection & Counter Terrorism, ICCE programs offer an effective solution for ordinary citizens to deter and counter crime. 
+	       If you are above the age of 16 years and are concerned about your security in personal and public spaces, then these programs will put your concern to rest. 
+               Tactically designed to be delivered over a combination of online & offline platforms, the content creates awareness on topics like Security, Threats, Crime-Timeline, Personal Security Firewalls, Fight Back Strategy, Community Policing, Israeli Mental & Physical Preparedness, and more.</p>
         </div>
     </div>
 
@@ -101,11 +99,11 @@
 
     <div class="service-box">
         <div class="service-icon">
-            <i class="fa-solid fa-building-shield"></i>
+            <i class="fa-solid fa-layer-group"></i>
         </div>
         <div class="service-desc">
-            <h2>Institutional Security</h2>
-            <p>Secure children within institutions with our 360-degree security architecture. Reach out for more information.</p>
+            <h2>Close Protection - Training, Design and Upskilling</h2>
+            <p>Close Protection/Executive Protection/VIP Protection is a niche service that requires one to function 24/7 under significant stress. In such scenarios, it is always better to bring in professionals to train and guide the operatives to deal with not just the evolving threats to their assets, but also upgrade them with more efficient SOPs and tactics. At TSoC, we offer you just that. Israeli Close Protection expertise combined with operational experience from ex-Indian Special Forces. Reach out to us to know how we could integrate our expertise into your security detail.</p>
         </div>
     </div>
     <div class="service-box">
@@ -123,7 +121,7 @@
             <i class="fa-solid fa-people-roof"></i>
         </div>
         <div class="service-desc">
-            <h2>Community Security. (#TSoC_CommunityPolicing)</h2>
+            <h2>Community Security (#TSoC_CommunityPolicing)</h2>
             <p>Is your community secured from crime, criminals and events of public unrest? Book your consulting NOW!</p>
         </div>
     </div>
@@ -164,23 +162,25 @@
         <h1 class="course-title">{{course.name}}</h1>
         <br>
         <p class="simple">{{course.description}}</p>
+        
         <div class="course-desc">
-            {% if course.active %}
-            <span><i class="fa-solid fa-video"></i> {{course.length}} Videos</span>
-            {% else %}
-            <span><i class="fa-solid fa-video"></i> Videos Coming Soon</span>
-            <br>
-            <br>
-            <span></span>
-            
-            {% endif %}
+            <span><i class="fa-solid fa-clock"></i> {{course.time_to_complete}}</span>
+            <span><i class="fa-solid fa-language"></i> {{course.language}}</span>
+        </div>
+        <div class="course-desc">
+            {% comment %} <span><i class="fa-solid fa-indian-rupee-sign"> {% cal_sellprice course.price course.discount as value %}{{value}}</i></span> {% endcomment %}
+            <span>Minimum Qualification : {{course.requirement_to_complete}}</span>
         </div>
         <div class="course-ratings">
             {% if course.active %}
-            <span>{% cal_sellprice course.price course.discount as value %}{{value|rupee}}</span>
+                {% if paid %}
+                <span></span>
+                {% else %}
+                <span>{% cal_sellprice course.price course.discount as value %}{{value|rupee}}</span>
+                {% endif %}
             <span><a href="{% url 'course' course.slug %}">Show More</h4></a></span>
             {% else %}
-            
+                <span>Coming Soon</span>
             {% endif %}
         </div>
     </div>

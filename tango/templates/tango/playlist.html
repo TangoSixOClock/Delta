@@ -10,9 +10,28 @@
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+   {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% endcomment %}
    <link rel="shortcut icon" href="{% static 'images/Tango.webp' %}" type="image/x-icon">
    <!-- custom css file link  -->
    <link rel="stylesheet" href="{% static '/Css/profile.css' %}">
+   <style>
+      .alert {
+         padding: 15px;
+         margin-bottom: 20px;
+         border: 1px solid transparent;
+         border-radius: 4px;
+       }
+       
+       .alert-info {
+         color: #31708f;
+         background-color: #d9edf7;
+         border-color: #bce8f1;
+       }
+       
+       .alert-info h2 {
+         margin-top: 0;
+       }
+      </style>
 
 </head>
 <body>
@@ -36,11 +55,11 @@
       </div>
 
       <div class="profile">
-         <img src="{{request.user.userprofile.photo.url}}" class="image" alt="Profile Picture">
-         <h3 class="name">{{request.user.email}}</h3>
+         {% comment %} <h3 class="name">{{request.user.email}}</h3> {% endcomment %}
          <div class="flex-btn">
             <a href="{% url 'logoutpage' %}" class="option-btn">Logout</a>
-            <a href="{% url 'help' %}" class="option-btn">Support</a>
+            {% comment %} <a href="{% url 'help' %}" class="option-btn">Support</a> {% endcomment %}
+            <a href="{% url 'profile' %}" class="option-btn">Profile</a>
          </div>
       </div>
 
@@ -54,12 +73,12 @@
       <i class="fas fa-times"></i>
    </div>
 
-   <div class="profile">
-      <img src="{{request.user.userprofile.photo.url}}" class="image" alt="profile">
-      <h3 class="name">{{request.user.email}}</h3>
-      <p class="role">Student ID : {{request.user.userprofile.profileid}}</p>
+   {% comment %} <div class="profile">
+      <p class="name">Username : {{request.user.username}}</p>
+      <p class="name">{{request.user.email}}</p>
+      <p class="role">User ID : {{request.user.userprofile.profileid}}</p>
       <a href="{% url 'profile' %}" class="btn">Profile</a>
-   </div>
+   </div> {% endcomment %}
 
    <nav class="navbar">
       <a href="{% url 'home' %}"><span>Home</span></a>
@@ -83,7 +102,7 @@
     {% endcomment %}
          <div class="thumb">
             <img src="{{course.thumbnail.url}}" alt="">
-            <span>{{course.length}}</span>
+            <span>{{course.numbers_of_chapter}}</span>
          </div>
       </div>
       <div class="column">
@@ -94,9 +113,10 @@
             {% if enrolled %}
                {% if not certificate %}
                <p style="font-size: 13px; margin-bottom:1px;">You have to complete all the videos to download Certificate.</p>
-            <a class="inline-btn" >Certificate</a>
+            <a class="inline-btn" href="">Certificate</a>
                {% else %}
-            <a class="inline-btn" href="{% url 'home' %}">Certificate</a>
+               <p style="font-size: 13px; margin-bottom:1px;">You have completed the course, you can download Certificate.</p>
+            <a class="inline-btn" href="{% url 'certificate' %}">Certificate</a>
                {% endif %}
             {% else %}
             <p style="font-size: 13px; margin-bottom:1px;">To unlock all the videos Buy Course</p>
@@ -112,21 +132,32 @@
 <section class="playlist-videos">
 
    <h1 class="heading">Chapters</h1>
+   {% if error_msg %}
+      <div class="alert alert-info"><h2>{{error_msg}}</h2></div>
+            {% endif %}
 
    <div class="box-container">
       {% is_enrolled request course as enrolled %}
       {% for v in chapters %}
          {% if v.is_preview or enrolled %}
-         <a class="box" href="{% url 'watch' v.slug v.serial_number %}">
-            <i class="fas fa-play"></i>
-            <img src="{{v.thumbnail.url}}" alt="Image">
-            <h3>{{v.serial_number}}. {{v.title}}</h3>
-         </a>
+            {% if v.serial_number <= user.chapter %}
+               <a class="box" href="{% url 'watch' v.slug v.serial_number %}">
+                  <i class="fas fa-play"></i>
+                  <img src="{{v.thumbnail.url}}" alt="Image">
+                  <h3 style="text-decoration:None;">{{v.serial_number}}. {{v.title}} </h3>
+               </a>
+               {% else %}
+                  <a class="box" href="?action=locked">
+                     <i class="fas fa-lock" ></i>
+                     <img src="{{v.thumbnail.url}}" alt="Image">
+                     <h3 style="text-decoration:None;">{{v.serial_number}}. {{v.title}} </i></h3>
+                  </a>
+               {% endif %}
       {% else %}
-         <a class="box" href="">
-            <i class="fas fa-lock"></i>
+         <a class="box" href="{% url 'payment' course.slug %}">
+            <i class="fas fa-lock" style="color:#edfaf1;"></i>
             <img src="{{v.thumbnail.url}}" alt="Image">
-            <h3>{{v.serial_number}}. {{v.title}} </i></h3>
+            <h3 style="text-decoration:None;">{{v.serial_number}}. {{v.title}}  </i></h3>
          </a>
          {% endif %}
       {% endfor %}
@@ -136,6 +167,11 @@
 </section>
 
 
+<footer class="footer">
+
+   &copy; copyright 2024 by <span>Tango</span> | All Rights Reserved!
+
+</footer>
 
 
 

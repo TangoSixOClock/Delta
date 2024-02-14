@@ -1,152 +1,313 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Registration</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link rel="shortcut icon" href="{% static 'images/Tango.webp' %}" type="image/x-icon">
-  <link rel="stylesheet" href="{% static '/Css/login.css' %}">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-</head>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Tango Six O'Clock | Registration</title>
+    <link rel="stylesheet" href="{% static 'Css/register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static '/images/Tango.webp' %}" type="image/x-icon">
+    </head>
 <body>
-<!-- partial:index.partial.html -->
-<div class="box-form">
-    <div class="left">
-        <div class="overlay">
-            <h1>Tango Six O'Clock</h1>
-            <span>
-                {% comment %} <p>login with social media</p>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-google" aria-hidden="true"></i></a> {% endcomment %}
-            </span>
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+
+      <form id="myform" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <div class="user-details">
+
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" name="fullname" id="id_fullname" placeholder="Enter your name" maxlength="20" required>
+            <div id="fnameError" style="color: red;"></div>
+            {% if form.fullname.errors %}
+            {% for error in form.fullname.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" name="username" id="id_username" placeholder="Enter your username" maxlength="20" required>
+            <div id="unameError" style="color: red;"></div>
+            {% if form.username.errors %}
+            {% for error in form.username.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" name="email" id="id_email" placeholder="Enter your email" required>
+            <div id="emailError" style="color: red;"></div>
+            {% if form.email.errors %}
+            {% for error in form.email.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="text" name="phone" id="id_phone" pattern="[0-9\s]{8,12}" placeholder="Enter your number" required>
+            <div id="phoneError" style="color: red;"></div>
+            {% if form.phone.errors %}
+            {% for error in form.phone.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Date of Birth (dd/mm/yyyy)</span>
+            <input type="text" name="dob" id="id_dob" placeholder="DOB" required>
+            <div id="dobError" style="color: red;"></div>
+            {% if form.dob.errors %}
+            {% for error in form.dob.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Institute/Organisation</span>
+            <input type="text" name="institude" id="id_institude" placeholder="Enter your institute" required>
+            <div id="instError" style="color: red;"></div>
+            {% if form.institude.errors %}
+            {% for error in form.institude.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Designation</span>
+            <input type="text" name="profession" id="id_profession" placeholder="Enter your designation" required>
+            <div id="profError" style="color: red;"></div>
+            {% if form.profession.errors %}
+            {% for error in form.profession.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Location</span>
+            <input type="text" name="location" id="id_location" placeholder="Enter your location" required>
+            <div id="locError" style="color: red;"></div>
+            {% if form.location.errors %}
+            {% for error in form.location.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" name="password1" id="id_password1" placeholder="Enter your password" required>
+            <div id="passError" style="color: red;"></div>
+            {% if form.password1.errors %}
+            {% for error in form.password1.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
+
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="password" name="password2" id="id_password2" placeholder="Confirm your password" required>
+            <div id="passError" style="color: red;"></div>
+            {% if form.password2.errors %}
+            {% for error in form.password2.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+          </div>
         </div>
+        
+
+        <div class="gender-details">
+          <input type="radio" name="sex" value="Male" id="dot-1">
+          <input type="radio" name="sex" value="Female" id="dot-2">
+          <input type="radio" name="sex" value="Not prefer" id="dot-3">
+          <span class="gender-title">Gender</span>
+          <div class="category">
+            <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="gender">Male</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="gender">Female</span>
+          </label>
+          <label for="dot-3">
+            <span class="dot three"></span>
+            <span class="gender">Others/Prefer not to say</span>
+            </label>
+          </div>
+          <div id="genderError" class="error"></div>
+          {% if form.sex.errors %}
+            {% for error in form.sex.errors %}
+                <div style="color: red;"><p>{{ error }}</p></div>
+            {% endfor %}
+        {% endif %}
+        </div>
+        <br>
+        <div class="input-box">
+            <label>
+                 <pre><input type="checkbox" id="myCheckbox" required>  </pre>
+                <span class="details">I am 16 years of age or older and I agree to the <a href="{% url 'term_condition' %}" target="__blank">Terms & Conditions</a>.</span>
+                <div id="termError" style="color: red;"></div>
+            </label>
+        </div>
+        <br>
+        <div class="option"><b>Note : </b>All the fields are mandatory.</div>
+        <div class="button">
+          <input type="submit" value="Register" id="submitButton" disabled>
+        </div>
+      </form>
     </div>
 
-    <div class="right">
-        <h1>Registration</h1>
-        <p>Already have an account? <a href="{% url 'loginpage' %}">Login In</a> . You can choose other options for sign up.</p>
-        <div class="inputs">
-            <form method="POST">
-                {% csrf_token %}
-                <input class="input" type="text" name="username" id='id_username' placeholder="User name" required>
-                <div class="requirements">Username should be at least 4 characters and contain only letters and numbers.</div>
-                <div id="usernameError" class="error"></div>
+    <div class="option">or Connect With Social Media</div>
+        <div class="twitter">
+          <a href=""><i class="fab fa-google"></i>Sign Up With Google</a>
+        </div>
+        
+        <div class="option">Already have an account ? <a href="{% url 'loginpage' %}">Log In</a></div>
+  </div>
 
-                <input class="input" type="text" name="email" id='id_email' placeholder="Email" required>
-                <div class="requirements">Invalid email. Email must contain '@' and have a valid domain (.com or .in).</div>
-                <div id="emailError" class="error"></div>
-
-                <input class="input" type="password" name="password1" id='id_password1' placeholder="Password" required>
-                <div class="requirements">
-                    Password should be at least 10 characters and include at least one numeric character,
-                    one lowercase character, one uppercase character, and one of the following symbols: @, !, $.
-                </div>
-
-                <input class="input" type="password" name="password2" id='id_password2' placeholder="Confirm password" required>
-                <div id="passwordError" class="error"></div>
-            </div>
-
-            <br><br>
-            
-            <br>
-            <input class="button" type="submit" value="Sign Up" onclick=" return validateForm()">
-        </form>
-    </div>
-
-</div>
-<!-- partial -->
-
-<script>
+  <script>
+   
     function validateForm() {
-        const usernameInput = document.getElementById('id_username');
-        const emailInput = document.getElementById('id_email');
-        const passwordInput = document.getElementById('id_password1');
-        const confirmPasswordInput = document.getElementById('id_password2');
+          // Reset error messages
+          document.getElementById("fnameError").innerText = "";
+          document.getElementById("unameError").innerText = "";
+          document.getElementById("emailError").innerText = "";
+          document.getElementById("phoneError").innerText = "";
+          document.getElementById("passError").innerText = "";
+          document.getElementById("instError").innerText = "";
+          document.getElementById("profError").innerText = "";
+          document.getElementById("termError").innerText = "";
+          document.getElementById("genderError").innerText = "";
+          document.getElementById("locError").innerText = "";
+          document.getElementById("dobError").innerText = "";
+          
+          // Validate Full Name
+          const fullname = document.getElementById("id_fullname").value;
+          const fregex = /^[a-zA-Z]+$/;
+         /* if (fullname.trim() === "" || !fregex.test(fullname)) {
+            document.getElementById("fnameError").innerText = "Please enter a valid name with only alphabets.";
+            return false;
+          } */
 
-        const username = usernameInput.value;
-        const email = emailInput.value;
-        const password = passwordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
+          // Validate Username
+          const username = document.getElementById("id_username").value.trim();
+          const uregex = /^[a-zA-Z0-9]+$/;
+          if (username === "" || !uregex.test(username)) {
+            document.getElementById("unameError").innerText = "Please enter a valid alphanumeric string only.";
+            return false;
+          }
+          if (username.length < 6) {
+            document.getElementById("unameError").innerText = "Please use username with 6+ characters.";
+            return false;
+          }
+      
+          // Validate Email
+          const email = document.getElementById("id_email").value;
+          const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+          if (!emailRegex.test(email)) {
+            document.getElementById("emailError").innerText = "Enter a valid email address.";
+            return false;
+          }
+      
+          // Validate Phone Number
+          const phone = document.getElementById("id_phone").value;
+          const phoneRegex = /^[0-9\s]{8,12}$/;
+          if (!phoneRegex.test(phone)) {
+            document.getElementById("phoneError").innerText = "Enter a valid phone number.";
+            return false;
+          }
+      
+          // Validate Password
+          const password1 = document.getElementById("id_password1").value;
+          const password2 = document.getElementById("id_password2").value;
+          if (password1 !== password2) {
+            document.getElementById("passError").innerText = "Password didn't match.";
+            return false;
+          }
+          const pregex = /^(?=.*[A-Z])(?=.*\d.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+          if (password1 < 8 || !pregex.test(password1)) {
+            document.getElementById("passError").innerText = "Use minimum 8 characters with one special, one uppercase and two numeric characters.";
+            return false;
+          }
 
-        const usernameError = document.getElementById('usernameError');
-        const emailError = document.getElementById('emailError');
-        const passwordError = document.getElementById('passwordError');
+          // Validate Date of Birth
+       //  const dob = document.getElementById("id_dob").value;
+          /* if (!dob) {
+            document.getElementById("dobError").innerText = "Enter your date of birth";
+            return false;
+          } */
+  
+          // Validate Institute
+          const institute = document.getElementById("id_institude").value;
+          // const simpleregex = /^[a-zA-Z]+$/;
+          if (institude.trim() === "" || !fregex.test(institute)) {
+            document.getElementById("instError").innerText = "Please enter a valid name with only alphabets.";
+            return false;
+          }
+      
+          // Validate Designation
+          const profession = document.getElementById("id_profession").value;
+         // const proregex = /^[a-zA-Z]+$/;
+          if (profession.trim() === "" || !fregex.test(profession)) {
+            document.getElementById("profError").innerText = "Please enter a valid name with only alphabets.";
+            return false;
+          }
+          
+          const maleRadio = document.getElementById("dot-1");
+          const femaleRadio = document.getElementById("dot-2");
+        
+          // Check if either radio button is checked
+          if (!maleRadio.checked || !femaleRadio.checked) {
+            document.getElementById("genderError").innerText = "Please select the gender.";
+            return false;
+          }
 
-        // Reset previous errors
-        usernameError.innerHTML = '';
-        emailError.innerHTML = '';
-        passwordError.innerHTML = '';
+          const location = document.getElementById("id_location").value;
+         // const lregex = /^[a-zA-Z]+$/;
+          if (location.trim() === "" || !fregex.test(location)) {
+            document.getElementById("locError").innerText = "Please enter a valid name with only alphabets.";
+            return false;
+          }
 
-        // Hide requirements
-        document.querySelectorAll('.requirements').forEach(el => el.style.display = 'none');
+          // Validate Checkbox
+          if (!document.getElementById("myCheckbox").checked) {
+            document.getElementById("termError").innerText = "Please agree to the Terms and Conditions.";
+            return false;
+          }
+      
+          // If all validations pass, enable the submit button
+      document.getElementById("submitButton").disabled = false;
+      
+      return true;
+};
 
-        // Validate username
-        const usernameRegex = /^[a-zA-Z0-9]+$/;
-        if (username.length < 4 || !usernameRegex.test(username)) {
-            usernameError.innerHTML = 'Username should be at least 4 characters and contain only letters and numbers.';
-            usernameInput.classList.add('input-error');
-        } else {
-            usernameInput.classList.remove('input-error');
-        }
+const checkbox = document.getElementById('myCheckbox');
+const submitButton = document.getElementById('submitButton');
+  checkbox.addEventListener('change', function() {
+      submitButton.disabled = !checkbox.checked;
+});
 
-        // Simulate username already available check
-        // Replace this with actual backend validation
-        if (username === 'existingUsername') {
-            usernameError.innerHTML = 'Username already available.';
-            usernameInput.classList.add('input-error');
-        }
-
-        // Validate email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            emailError.innerHTML = 'Invalid email. Email must contain "@" and have a valid domain (.com or .in).';
-            emailInput.classList.add('input-error');
-        } else {
-            emailInput.classList.remove('input-error');
-        }
-
-        // Simulate email already available check
-        // Replace this with actual backend validation
-        if (email === 'existing@example.com') {
-            emailError.innerHTML = 'Email already available.';
-            emailInput.classList.add('input-error');
-        }
-
-        // Validate password
-        if (password.length < 10 ||
-            !/[0-9]/.test(password) ||
-            !/[a-z]/.test(password) ||
-            !/[A-Z]/.test(password) ||
-            !/[@!$]/.test(password)
-        ) {
-            passwordError.innerHTML = 'Password should be at least 10 characters and include at least one numeric character, one lowercase character, one uppercase character, and one of the following symbols: @, !, $.';
-            passwordInput.classList.add('input-error');
-        } else {
-            passwordInput.classList.remove('input-error');
-        }
-
-        // Confirm password match
-        if (password !== confirmPassword) {
-            passwordError.innerHTML = 'Passwords mismatch.';
-            confirmPasswordInput.classList.add('input-error');
-        } else {
-            confirmPasswordInput.classList.remove('input-error');
-        }
-
-        // Form is valid, you can proceed with submission or other actions
-        if (!usernameError.innerHTML && !emailError.innerHTML && !passwordError.innerHTML) {
-           // alert('Form submitted successfully!');
-            return true;
-        }
-
-        return false;
-    }
-</script>
-
-
-
-
+document.getElementById('myform').addEventListener('submit', function(event) {
+      if (!checkbox.checked) {
+        event.preventDefault();
+        document.getElementById("termError").innerText = "Please agree to the Terms and Conditions.";
+      }
+});
+  </script>
 </body>
 </html>

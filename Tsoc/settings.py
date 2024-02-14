@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'bs3$b(+5vqe(=#+5-#p0v6fz9_d)creqg-1ql7exyn18&yx=cu'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*','3.108.234.18','172.31.6.103','http://www.tangosixoclock.in','www.tangosixoclock.in','http://tangosixoclock.in','https://www.tangosixoclock.in','tangosixoclock.in','https://tangosixoclock.in']
 
@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tango',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -33,9 +34,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'Tsoc.urls'
+
 
 TEMPLATES = [
     {
@@ -55,38 +58,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Tsoc.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'delta',
-        'USER': 'tango',
-        'PASSWORD': 'Django123',
-        'HOST': 'delta.cpzckj1ocmci.ap-south-1.rds.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'delta',
+#         'USER': 'tango',
+#         'PASSWORD': 'Django123',
+#         'HOST': 'delta.cpzckj1ocmci.ap-south-1.rds.amazonaws.com',
+#         'PORT': '5432',
 #     }
 # }
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -121,3 +110,14 @@ EMAIL_HOST_PASSWORD = 'qlpe ihcc juvi fomm'
 DEFAULT_FROM_EMAIL = 'tangosixoclock@gmail.com'
 
 EMAIL_TIMEOUT = 1
+
+# APPEND_SLASH = False
+
+# test payment api
+KEY_ID = 'rzp_test_F8MIMQQ24shScO'
+KEY_SECRET = 'RF8VtlBN01wRgcOTnO6OqUnL'
+
+# live payment api
+# KEY_ID = 'rzp_live_0JNj8abM7pJbL3'
+# KEY_SECRET = 'xH8MJ0DQ7GwYZ6z0zLdK7JY5'
+
